@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
@@ -17,20 +17,19 @@ strategy:
       python.version: '3.11'
     Python312:
       python.version: '3.12'
-    
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
 
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
 
-- task: ArchiveFiles@2
+  - task: ArchiveFiles@2
     displayName: 'Archive files'
     inputs:
       rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
